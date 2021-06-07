@@ -8,7 +8,7 @@ import ConfirmPayment from '../components/stepForm/ConfirmPayment'
 const defaultData = {
     giving_info:'',
     amount:'',
-    cc:'',
+    payment_type:'Credit Card',
     name:'',
     email:'',
     phone:'',
@@ -16,8 +16,9 @@ const defaultData = {
     city:'',
     province:'',
     card_number:'4404520000001439',
-    card_date:'',
-    card_cvc:'123',
+    card_date_year:'',
+    card_date_month:'',
+    card_cvc:'',
     intentId: ''
 }
 const steps =[

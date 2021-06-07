@@ -1,60 +1,103 @@
-import React,{ useEffect} from 'react'
-
-
-
+import React, { useEffect } from "react";
 
 export default function BillingForm({ formData, navigation, setForm }) {
-    const { name , email , phone ,address , city , province , amount } = formData;
-    
+  const { name, email, phone, address, city, province, payment_type } = formData;
+  console.log(payment_type);
 
-    return (
-        <div>
-           <div className="ui form">
-               <div className="field">
-                   <label>Name</label>
-                   <div className="field">
-                       <input type="text" name="name" id="" value={ name } onChange={setForm} />
-                   </div>
-               </div>
-               <div className="two fields">
-               <div className="field">
-                   <label>Email</label>
-                   <div className="field">
-                       <input type="email" name="email" id="" value={email} onChange={setForm} />
-                   </div>
-               </div>
-               <div className="field">
-                   <label>Phone</label>
-                   <div className="field">
-                       <input type="text" name="phone" id="" value={phone} onChange={setForm} />
-                   </div>
-               </div>
-           </div>
-           <div className="field">
-                   <label>Address</label>
-                   <div className="field">
-                       <input type="text" name="address" id="" value={address} onChange={setForm} />
-                   </div>
-               </div>
-               <div className="two fields">
-               <div className="field">
-                   <label>City</label>
-                   <div className="field">
-                       <input type="text" name="city" id=""  value={city} onChange={setForm} />
-                   </div>
-               </div>
-               <div className="field">
-                   <label>Province</label>
-                   <div className="field">
-                       <input type="text" name="province" id="" value={province} onChange={setForm}/>
-                   </div>
-               </div>
-           </div>
-           <button className="ui button  " onClick={()=> navigation.previous()} >Back</button>
-           <button className="ui button " onClick={()=> navigation.next()} >Next</button>
-
-
-           </div>
+  return (
+    <div>
+      <div className="">
+        <div className="">
+          <label>Name</label>
+          <div className="">
+            <input
+              className="input"
+              type="text"
+              name="name"
+              
+              value={name}
+              onChange={setForm}
+            />
+          </div>
         </div>
-    )
+        <div className="flex justify-between">
+          <div className="w-full mx-1">
+            <label>Email</label>
+
+            <input
+              className="input"
+              type="email"
+              name="email"
+              
+              value={email}
+              onChange={setForm}
+            />
+          </div>
+          <div className="w-full">
+            <label>Phone</label>
+
+            <input
+              className="input"
+              type="text"
+              name="phone"
+              
+              value={phone}
+              onChange={setForm}
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label>Address</label>
+          <div className="field">
+            <input
+              className="input"
+              type="text"
+              name="address"
+              
+              value={address}
+              onChange={setForm}
+            />
+          </div>
+        </div>
+        <div className="flex">
+          <div className="w-full mx-1">
+            <label>City</label>
+            <input
+              className="input"
+              type="text"
+              name="city"
+              
+              value={city}
+              onChange={setForm}
+            />
+          </div>
+          <div className="w-full">
+            <label>Province</label>
+            <input
+              className="input"
+              type="text"
+              name="province"
+              
+              value={province}
+              onChange={setForm}
+            />
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <button
+            className="btn mx-1 bg-gray-500 hover:bg-gray-100"
+            onClick={() => navigation.previous()}
+          >
+            Back
+          </button>
+          <button
+            className="btn bg-indigo-700"
+            onClick={() => navigation.next()}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

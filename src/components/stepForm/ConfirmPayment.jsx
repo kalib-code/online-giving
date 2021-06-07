@@ -11,22 +11,15 @@ const cpk = "pk_test_4pRxZAYAVNuB6mfHAKb3myjZ";
 
 export default function ConfirmPayment({ formData }) {
   const {
-    amount,
-    giving_info,
+    
     name,
-    email,
-    phone,
-    address,
-    city,
-    province,
-    intentId,
     card_number,
-    card_date,
-    card_cvc
+    
+
   } = formData;
   const [resultAttach, setResultAttach] = useState({});
 
-console.log(resultAttach);
+console.log(card_number);
 
   useEffect(() => {
 
