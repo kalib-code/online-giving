@@ -40,8 +40,8 @@ export default function BillingForm({ formData, navigation, setForm }) {
           attributes: {
             amount: parseInt(amount) * 100,
             redirect: {
-              success: "http://localhost:3000/payments",
-              failed: "http://localhost:3000/payments?fail=true",
+              success: "https://church-giving.netlify.app/payments",
+              failed: "https://church-giving.netlify.app/payments",
             },
             billing: {
               address: {
