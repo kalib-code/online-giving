@@ -1,12 +1,14 @@
 import React from "react";
 import axios from "axios";
-
+import Cards from 'react-credit-cards'
+import 'react-credit-cards/es/styles-compiled.css';
 const url = "https://api.paymongo.com/v1";
 const sk = btoa("sk_test_LrjDKQYYmW8pNcnxzet7qdCi");
 const pk = btoa("pk_test_4pRxZAYAVNuB6mfHAKb3myjZ");
 const cpk = "pk_test_4pRxZAYAVNuB6mfHAKb3myjZ";
 
 export default function Payment({ formData, setForm, navigation }) {
+  
   const {
     amount,
     giving_info,
@@ -59,14 +61,21 @@ export default function Payment({ formData, setForm, navigation }) {
         },
       },
     });
-    localStorage.setItem("resultPayment", JSON.stringify(result.data));
+    localStorage.setItem("resultPayment", JSON.stringify(result.data)); 
     navigation.next();
   };
 
   return (
     <div>
       <div className="w-full items-center justify-center text-center mt-3 mb-3">
-      <h3 className="font-regular text-xl mb-1">{giving_info}</h3>
+        < Cards 
+        number={card_number}
+        name= {name}
+        expiry={`${card_date_month}${card_date_year}`}
+        cvc={card_cvc}
+        focussed={focus}
+        />
+      <h3 className="font-regular text-xl mb-1 mt-5">{giving_info}</h3>
       <h1 className="font-light text-4xl mb-4"><span>₱</span>{amount} </h1>
       </div>
      
@@ -77,8 +86,7 @@ export default function Payment({ formData, setForm, navigation }) {
             <input
             className="input"
               type="text"
-              name="card_name"
-              
+              name="card_number"
               value={card_number}
               onChange={setForm}
             />
@@ -94,7 +102,6 @@ export default function Payment({ formData, setForm, navigation }) {
                 type="text"
                 name="card_date_month"
                 placeholder="Month"
-                
                 value={card_date}
                 onChange={setForm}
               />
@@ -103,7 +110,6 @@ export default function Payment({ formData, setForm, navigation }) {
                 type="text"
                 name="card_date_year"
                 placeholder="Year"
-                
                 value={card_date}
                 onChange={setForm}
               />

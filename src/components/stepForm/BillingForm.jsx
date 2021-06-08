@@ -1,8 +1,69 @@
 import React, { useEffect } from "react";
+import { Redirect } from 'react-router-dom';
+
+import { useNot } from "react-hooks-helper";
+import axios from "axios";
+
+const url = "https://api.paymongo.com/v1";
+const sk = btoa("sk_test_LrjDKQYYmW8pNcnxzet7qdCi");
 
 export default function BillingForm({ formData, navigation, setForm }) {
-  const { name, email, phone, address, city, province, payment_type } = formData;
-  console.log(payment_type);
+  const {
+    name,
+    email,
+    phone,
+    address,
+    city,
+    province,
+    payment_type,
+    amount
+  } = formData;
+
+  const [value, notValue] = useNot(false);
+
+  useEffect(() => {
+    if (payment_type === "card") {
+      notValue(true);
+    }
+  }, [payment_type]);
+
+  const onSubmit = async (e) => {
+    const result = await axios(`${url}/sources`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Basic ${sk}`,
+      },
+      data: {
+        data: {
+          attributes: {
+            amount: parseInt(amount) * 100,
+            redirect: {
+              success: "http://localhost:3000/payments",
+              failed: "http://localhost:3000/payments?fail=true",
+            },
+            billing: {
+              address: {
+                line1: address,
+                line2: null,
+                city: city,
+                country: "PH",
+              },
+              name: name,
+              phone: phone,
+              email: email
+            },
+            type: payment_type,
+            currency: "PHP",
+          },
+        },
+      },
+    });
+    localStorage.setItem("resultSource", JSON.stringify(result.data)); 
+    window.location.replace(result.data.data.attributes.redirect.checkout_url );
+  };
+
 
   return (
     <div>
@@ -14,7 +75,6 @@ export default function BillingForm({ formData, navigation, setForm }) {
               className="input"
               type="text"
               name="name"
-              
               value={name}
               onChange={setForm}
             />
@@ -28,7 +88,6 @@ export default function BillingForm({ formData, navigation, setForm }) {
               className="input"
               type="email"
               name="email"
-              
               value={email}
               onChange={setForm}
             />
@@ -40,7 +99,6 @@ export default function BillingForm({ formData, navigation, setForm }) {
               className="input"
               type="text"
               name="phone"
-              
               value={phone}
               onChange={setForm}
             />
@@ -53,7 +111,6 @@ export default function BillingForm({ formData, navigation, setForm }) {
               className="input"
               type="text"
               name="address"
-              
               value={address}
               onChange={setForm}
             />
@@ -66,7 +123,6 @@ export default function BillingForm({ formData, navigation, setForm }) {
               className="input"
               type="text"
               name="city"
-              
               value={city}
               onChange={setForm}
             />
@@ -77,24 +133,31 @@ export default function BillingForm({ formData, navigation, setForm }) {
               className="input"
               type="text"
               name="province"
-              
               value={province}
               onChange={setForm}
             />
           </div>
         </div>
-        <div className="flex justify-between">
+        <div className={`${value ? "" : "hidden"}flex justify-between`}>
           <button
-            className="btn mx-1 bg-gray-500 hover:bg-gray-100"
+            className={`${
+              value ? "btn" : "hidden"
+            }  mx-1 bg-gray-500 hover:bg-gray-100`}
             onClick={() => navigation.previous()}
           >
             Back
           </button>
           <button
-            className="btn bg-indigo-700"
+            className={`${value ? "btn" : "hidden"} bg-indigo-700`}
             onClick={() => navigation.next()}
           >
             Next
+          </button>
+          <button
+            className={`${value ? "hidden" : "btn"} bg-indigo-700`}
+            onClick={()=> onSubmit()}
+          >
+            Pay
           </button>
         </div>
       </div>
