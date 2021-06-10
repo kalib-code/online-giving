@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Redirect } from 'react-router-dom';
 
 import { useNot } from "react-hooks-helper";
 import axios from "axios";
@@ -81,7 +80,7 @@ export default function BillingForm({ formData, navigation, setForm }) {
           </div>
         </div>
         <div className="flex justify-between">
-          <div className="w-full mx-1">
+          <div className="w-full">
             <label>Email</label>
 
             <input
@@ -92,7 +91,7 @@ export default function BillingForm({ formData, navigation, setForm }) {
               onChange={setForm}
             />
           </div>
-          <div className="w-full">
+          <div className="w-full ml-1">
             <label>Phone</label>
 
             <input
@@ -117,17 +116,17 @@ export default function BillingForm({ formData, navigation, setForm }) {
           </div>
         </div>
         <div className="flex">
-          <div className="w-full mx-1">
+          <div className="w-full">
             <label>City</label>
             <input
-              className="input"
+              className="input "
               type="text"
               name="city"
               value={city}
               onChange={setForm}
             />
           </div>
-          <div className="w-full">
+          <div className="w-full ml-1">
             <label>Province</label>
             <input
               className="input"

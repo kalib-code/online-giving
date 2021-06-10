@@ -4,11 +4,14 @@ import MainForm from "../components/stepForm/MainForm";
 import BillingForm from "../components/stepForm/BillingForm";
 import Payment from "../components/stepForm/Payment";
 import ConfirmPayment from "../components/stepForm/ConfirmPayment";
+import { useAuthStateChange } from 'react-supabase'
+
+
 
 const defaultData = {
   giving_info: "",
+  payment_type:'',
   amount: "",
- 
   name: "",
   email: "",
   phone: "",
@@ -19,8 +22,10 @@ const defaultData = {
   card_date_year: "",
   card_date_month: "",
   card_cvc: "",
-  intentId: "",
+ 
 };
+
+
 const steps = [
   { id: "MainForm" },
   { id: "BillingForm" },
@@ -28,22 +33,20 @@ const steps = [
   { id: "ConfirmPayment" },
 ];
 
-const payment_types = {
-    Credit_card : 'Credit Card',
-    Gcash : 'Gcash',
-    GrabPay:'GrabPay'}
-
-    
-
 
 export default function MainScreen() {
+
+  useAuthStateChange((event, session) => {
+    console.log(`Supbase auth event: ${event}`, session)
+  })
+
   const [formData, setForm] = useForm(defaultData);
   const { step, navigation } = useStep({
     steps,
     initialStep: 0,
   });
 
-  const props = { formData, navigation, setForm , payment_types };
+  const props = { formData, navigation, setForm  };
 
   switch (step.id) {
     case "MainForm":

@@ -1,26 +1,46 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import MainScreen from "./screens/MainScreen"
-import EwalletScreen from "./screens/EwalletScreen"
+import React, {useEffect} from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Givingcreen from "./screens/GivingScreen";
+import EwalletScreen from "./screens/EwalletScreen";
+import LoginScreen from "./screens/LoginScreen";
+import AdminScreen from "./screens/AdminScreen";
+import { supaBaseKey, supaBaseUrl } from "./keys";
+import { createClient } from "@supabase/supabase-js";
+import { Provider } from "react-supabase";
+import FormViewGiving from "./screens/FormViewGiving"
+import FormViewLogin from "./screens/FormViewLogin"
 
 
-function App() {
+const client = createClient(supaBaseUrl, supaBaseKey);
+
+
+
+
+
+
+export default function App() {
+
+ 
+
+
   return (
-    <Router>
-    <div className=" flex container mx-auto justify-center h-screen items-center">
-    <div className="items-center justify-center border-1 shadow-lg border-gray-100 p-3.5 md:w-1/2 h-auto content-between w-4/5">
-      <div className=" flex flex-col w-full items-center justify-center ">
-        <img className=" w-40 h-40" src="https://lynkdev.com/wp-content/uploads/2021/06/106990650_3163969286982885_168510827730310867_n.jpg"/>
-        <h1>Destiny City Church</h1>
-        </div>
-      <Switch>
-              <Route exact path='/' component={ MainScreen } />
-              <Route path='/payments/' component={ EwalletScreen } />   
-          </Switch>
+    <div>
+       <Provider value={client}>
+        <Router>
+         
+                <Switch>
+                <Route exact path="/" component={FormViewGiving} />
+                <Route path="/payments/" component={EwalletScreen} />
+                <Route path="/admin" component={AdminScreen}/>
+                <Route path="/login/" component={FormViewLogin} />
+              </Switch>
+         
+         
+       
+        </Router>
+   
+    </Provider>
     </div>
-    </div>
-    </Router>
-  );
+  )
 }
 
-export default App;
