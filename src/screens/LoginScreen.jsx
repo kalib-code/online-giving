@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react'
+import React,{useState} from 'react'
 import LoginForm from '../components/LoginForm'
 import SignUpForm from '../components/SignUpForm'
 import { useForm, useStep } from "react-hooks-helper";
+
 
 
 
@@ -20,13 +21,15 @@ const defaultData = {
 
   export default function LoginScreen() {
 
+
+
     const [auth, setAuth] = useForm(defaultData);
     const { step, navigation } = useStep({
       steps,
       initialStep: 0,
     });
 
-const props = { auth, navigation, setAuth ,step  };
+const props = { auth, navigation, setAuth ,step };
 
 
    switch (step.id) {

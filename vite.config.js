@@ -14,7 +14,7 @@ module.exports = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [reactRefresh()]
+  plugins: [reactRefresh({parserPlugins: ['classProperties', 'classPrivateProperties']})]
 })
 
 
